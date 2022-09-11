@@ -1,0 +1,130 @@
+:root {
+	--bg-primary: rgb(49, 49, 49);
+	--bg-darken: rgba(0, 0, 0, 0.3);
+	--text-strong: white;
+	--text-normal: rgb(220, 220, 220);
+	--text-weak: rgb(156, 156, 156);
+}
+body {
+	margin: 0;
+	background-color: var(--bg-primary);
+	color: var(--text-normal);
+}
+.body.blur {
+	filter: blur(5px);
+}
+.body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+/*
+
+Generic
+
+*/
+.text-strong { color: var(--text-strong); }
+.text-normal { color: var(--text-normal); }
+.text-weak { color: var(--text-weak); }
+/*
+
+Killers
+
+*/
+#killers {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(750px, 1fr));
+	gap: 10px;
+}
+/*
+
+Killer
+
+*/
+.killer {
+	box-sizing: border-box;
+	display: grid;
+	grid-template:
+		"img name"
+		"img build";
+	grid-template-rows: 40px auto;
+	grid-template-columns: min-content auto;
+	padding: 10px;
+	margin: 10px;
+	border-radius: 8px;
+	background-color: var(--bg-darken);
+	min-width: 750px;
+	column-gap: 1em;
+}
+.killer > .image {
+	grid-area: img;
+	height: 95%;
+	width: auto;
+	align-self: center;
+}
+.killer > .killerName {
+	grid-area: name;
+	color: var(--text-strong);
+	justify-self: center;
+}
+/*
+
+Builds
+
+*/
+.builds {
+	align-self: center;
+	padding: 10px;
+	min-width: 256px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+	justify-content: space-around;
+}
+.build {
+	background-color: var(--bg-darken);
+	padding: 8px;
+	border-radius: 8px;
+	margin: 8px;
+}
+.buildName {
+	text-align: center;
+}
+.perks {
+	display: flex;
+	justify-content: center;
+}
+.perk {
+	width: 64px;
+	height: 64px;
+}
+/*
+
+Perk description modal
+
+*/
+.modal {
+	position: fixed;
+	padding: 20px;
+	top: 20%;
+	left: 20%;
+	right: 20%;
+	border-radius: 8px;
+	background-color: var(--bg-primary);
+}
+.perkDescription {
+	white-space: break-spaces;
+}
+.perkImage {
+	float: right;
+}
+.closeModal {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	padding: 10px 10px 13px;
+	border-radius: 50%;
+	line-height: .5em;
+	background-color: var(--bg-darken);
+	cursor: pointer;
+}

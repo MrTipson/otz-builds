@@ -1,0 +1,35 @@
+<head>
+	<link rel="stylesheet" href="css/stylesheet.css">
+	<template id="killerTemplate">
+		<div class="killer">
+			<h3 class="killerName"></h3>
+			<img class="image">
+			<div class="builds"></div>
+		</div>
+	</template>
+	<template id="buildTemplate">
+		<div class="build">
+			<div class="buildName"></div>
+			<div class="perks"></div>
+		</div>
+	</template>
+	<template id="modalTemplate">
+		<div class="modal">
+			<h2 class="perkName"></h2>
+			<p class="perkDescription"></p>
+			<div class="closeModal">x</div>
+		</div>
+	</template>
+</head>
+
+<body>
+	<div class="body">
+		<h2 class="text-strong">Otzdarva killer builds</h2>
+		<h4 class="text-weak">Last changed: <span id="changeDate"></span></h4>
+		<div id="killers"></div>
+	</div>
+	<script src="//unpkg.com/string-similarity/umd/string-similarity.min.js"></script>
+	<script src="js/papaparse.min.js"></script>
+	<script src="js/data-adapter.js"></script>
+	<script src="js/page.js"></script>
+</body>
