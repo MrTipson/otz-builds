@@ -11,12 +11,15 @@ body {
 	color: var(--text-normal);
 }
 .body.blur {
-	filter: blur(5px);
+	filter: blur(5px) brightness(0.5);
 }
 .body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+a, a:visited {
+	color: cyan;
 }
 /*
 
@@ -103,9 +106,14 @@ Builds
 Perk description modal
 
 */
+.modalbg {
+	background-color: rgba(0, 0, 0, 0.66);
+	position: fixed;
+	inset: 0;
+}
 .modal {
 	position: fixed;
-	padding: 20px;
+	padding: 20px 40px;
 	top: 20%;
 	left: 20%;
 	right: 20%;
@@ -113,10 +121,12 @@ Perk description modal
 	background-color: var(--bg-primary);
 }
 .perkDescription {
+	font-size: large;
 	white-space: break-spaces;
 }
 .perkImage {
 	float: right;
+	filter: drop-shadow(4px 4px 8px black);
 }
 .closeModal {
 	position: absolute;

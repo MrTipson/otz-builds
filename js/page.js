@@ -42,10 +42,9 @@ function buildPage(content) {
 
 function showPerkDetails(perkid) {
 	const modalTemplate = document.getElementById("modalTemplate").content.cloneNode(true);
-	const modal = modalTemplate.querySelector(".modal");
+	const modal = modalTemplate.querySelector(".modalbg");
 	modal.querySelector(".perkName").textContent = perks[perkid].name;
-	console.log(perks[perkid].desc);
-	modal.querySelector(".perkDescription").textContent = perks[perkid].desc.replaceAll("\\n", "\n");
+	modal.querySelector(".perkDescription").innerHTML = decodeURI(perks[perkid].desc);
 	const img = document.createElement("img");
 	img.classList.add("perkImage");
 	img.src = perks[perkid].filename;
@@ -75,9 +74,11 @@ function findPerk(perkName) {
 	return -1;
 }
 // Optionally, remove all quotes
-// [...document.querySelectorAll("span[class~=clr9]")].forEach((x)=>x.remove())
+// document.querySelectorAll("span[class~=clr9]").forEach((x)=>x.remove())
+// Optionally, remove all lazyloaded icons
+// document.querySelectorAll(".formattedPerkDesc").forEach((x)=>x.querySelectorAll("span[style*=padding]").forEach((y)=>y.remove()))
 // Oneliner to grab all perk names, descriptions and filenames
-// perks = [...document.querySelector("tbody").children].map((x)=>{return {filename: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/,""), name: x.querySelectorAll("a")[1].title, desc: x.querySelector(".formattedPerkDesc").innerText}})
+// perks = [...document.querySelector("tbody").children].map((x)=>{return {filename: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/,""), name: x.querySelectorAll("a")[1].title, desc: encodeURI(x.querySelector(".formattedPerkDesc").innerHTML.replaceAll("/wiki/","https://deadbydaylight.fandom.com/wiki/"))}})
 // Make sure they are sorted, so we can search with binary search
 // perks.sort(function(a, b){return a.name.localeCompare(b.name, 'en')});
 // And then JSON.stringify(perks)
