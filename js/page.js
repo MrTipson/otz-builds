@@ -52,11 +52,11 @@ function showPerkDetails(perkid) {
 	modal.querySelector(".perkDescription").prepend(img);
 	modal.addEventListener("click", (event) => {
 		if (event.target == modal) {
-			modal.remove(); document.querySelector(".body").classList.remove("blur");
+			modal.remove(); document.body.classList.remove("blur");
 		}
 	});
 	document.body.appendChild(modal);
-	document.querySelector(".body").classList.add("blur");
+	document.body.classList.add("blur");
 }
 
 // Binary search
