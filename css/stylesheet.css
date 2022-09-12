@@ -1,15 +1,21 @@
 :root {
 	--bg-primary: rgb(49, 49, 49);
+	--bg-secondary: rgb(36, 36, 36);
 	--bg-darken: rgba(0, 0, 0, 0.3);
 	--text-strong: white;
 	--text-normal: rgb(220, 220, 220);
 	--text-weak: rgb(156, 156, 156);
+}
+html {
+    /*scroll-behavior: smooth;*/
+	scroll-padding-top: 50px; 
 }
 body {
 	margin: 0;
 	background-color: var(--bg-primary);
 	color: var(--text-normal);
 	font-family: monospace;
+	font-size: 13pt;
 }
 .blur > .body {
 	filter: blur(5px) brightness(0.5);
@@ -38,6 +44,53 @@ h2, h3, h4 {
 	width: 100%;
 	text-align: center;
 }
+#sidebar {
+	z-index: 1;
+	position: fixed;
+	left: -300px;
+	top: 0px;
+	height: 100%;
+	width: 300px;
+	padding: 20px;
+	background-color: var(--bg-primary);
+	transition: left .25s ease-in-out;
+	box-shadow: 2px 2px 12px black;
+	box-sizing: border-box;
+}
+#sidebar.open {
+	left: 0px;
+}
+#sidebar > a {
+	font-size: 1rem;
+	color: var(--text-normal);
+	display: block;
+	text-decoration: none;
+}
+.sidebarTab {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-color: var(--bg-secondary);
+	border-radius: 0 20px 20px 0;
+	top: 20px;
+	left: 100%;
+	box-shadow: 5px 3px 7px -2px black;
+}
+.sidebarTab::after {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	content: "";
+	width: 10px;
+	height: 10px;
+	border-bottom: 2px solid white;
+	border-right: 2px solid white;
+	transform: rotate(-45deg);
+	transition: transform 0.25s linear;
+}
+.open > .sidebarTab::after {
+	transform: rotate(135deg);
+}
 /*
 
 Generic
@@ -63,6 +116,7 @@ Killer
 
 */
 .killer {
+	position: relative; /**/
 	box-sizing: border-box;
 	display: grid;
 	grid-template:
@@ -76,6 +130,9 @@ Killer
 	background-color: var(--bg-darken);
 	min-width: 800px;
 	column-gap: 1em;
+}
+.killer:target {
+	outline: 2px solid yellow;
 }
 .killer > .image {
 	grid-area: img;
@@ -137,7 +194,7 @@ Perk description modal
 	width: 70%;
 	height: fit-content;
 	border-radius: 8px;
-	background-color: var(--bg-primary);
+	background-color: var(--bg-secondary);
 }
 .perkDescription {
 	font-size: large;
