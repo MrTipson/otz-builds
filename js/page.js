@@ -50,8 +50,10 @@ function showPerkDetails(perkid) {
 	img.src = perks[perkid].filename;
 	img.alt = perks[perkid].name;
 	modal.querySelector(".perkDescription").prepend(img);
-	modal.querySelector(".closeModal").addEventListener("click", () => {
-		modal.remove(); document.querySelector(".body").classList.remove("blur");
+	modal.addEventListener("click", (event) => {
+		if (event.target == modal) {
+			modal.remove(); document.querySelector(".body").classList.remove("blur");
+		}
 	});
 	document.body.appendChild(modal);
 	document.querySelector(".body").classList.add("blur");

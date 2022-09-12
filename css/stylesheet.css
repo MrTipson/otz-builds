@@ -9,6 +9,7 @@ body {
 	margin: 0;
 	background-color: var(--bg-primary);
 	color: var(--text-normal);
+	font-family: monospace;
 }
 .body.blur {
 	filter: blur(5px) brightness(0.5);
@@ -20,6 +21,14 @@ body {
 }
 a, a:visited {
 	color: cyan;
+}
+h2 {
+	font-size: 2rem;
+	margin-bottom: 0;
+	border-bottom: 1px solid white;
+}
+h3 {
+	font-size: 1.2rem;
 }
 /*
 
@@ -70,6 +79,7 @@ Killer
 	grid-area: name;
 	color: var(--text-strong);
 	justify-self: center;
+	align-self: center;
 }
 /*
 
@@ -100,6 +110,7 @@ Builds
 .perk {
 	width: 64px;
 	height: 64px;
+	cursor: pointer;
 }
 /*
 
@@ -127,14 +138,4 @@ Perk description modal
 .perkImage {
 	float: right;
 	filter: drop-shadow(4px 4px 8px black);
-}
-.closeModal {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	padding: 10px 10px 13px;
-	border-radius: 50%;
-	line-height: .5em;
-	background-color: var(--bg-darken);
-	cursor: pointer;
 }
