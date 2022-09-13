@@ -44,10 +44,11 @@ function buildPage(content) {
 		}
 		killersNode.appendChild(killerNode);
 		// Add killer to sidebar
+		const links = sidebar.querySelector(".sidebarContent");
 		const link = document.createElement("a");
 		link.href = `#${killer.name}`;
 		link.textContent = killer.name;
-		sidebar.appendChild(link);
+		links.appendChild(link);
 	}
 }
 

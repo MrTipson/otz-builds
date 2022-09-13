@@ -1,14 +1,17 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+}
 :root {
 	--bg-primary: rgb(49, 49, 49);
 	--bg-secondary: rgb(36, 36, 36);
-	--bg-darken: rgba(0, 0, 0, 0.3);
+	--bg-darken: rgba(0, 0, 0, 0.4);
 	--text-strong: white;
 	--text-normal: rgb(220, 220, 220);
 	--text-weak: rgb(156, 156, 156);
 }
 html {
     /*scroll-behavior: smooth;*/
-	scroll-padding-top: 50px; 
+	scroll-padding-top: 10px; 
 }
 body {
 	margin: 0;
@@ -38,20 +41,20 @@ h2 {
 	text-underline-offset: 4px;
 }
 h3 {
-	font-size: 1.2rem;
+	font-size: 1.2em;
 }
 h2, h3, h4 {
 	width: 100%;
 	text-align: center;
 }
 #sidebar {
+	font-size: 16pt;
 	z-index: 1;
 	position: fixed;
 	left: -300px;
 	top: 0px;
 	height: 100%;
 	width: 300px;
-	padding: 20px;
 	background-color: var(--bg-primary);
 	transition: left .25s ease-in-out;
 	box-shadow: 2px 2px 12px black;
@@ -60,8 +63,7 @@ h2, h3, h4 {
 #sidebar.open {
 	left: 0px;
 }
-#sidebar > a {
-	font-size: 1rem;
+.sidebarContent > a {
 	color: var(--text-normal);
 	display: block;
 	text-decoration: none;
@@ -75,6 +77,12 @@ h2, h3, h4 {
 	top: 20px;
 	left: 100%;
 	box-shadow: 5px 3px 7px -2px black;
+}
+.sidebarContent {
+	padding: 20px;
+	height: 100%;
+	overflow-y: auto;
+	box-sizing: border-box;
 }
 .sidebarTab::after {
 	position: absolute;
@@ -90,6 +98,19 @@ h2, h3, h4 {
 }
 .open > .sidebarTab::after {
 	transform: rotate(135deg);
+}
+.footer {
+	width: 100%;
+	padding: 20px;
+	background-color: var(--bg-darken);
+	text-align: center;
+}
+.footer img {
+	width: 24px;
+	height: 24px;
+}
+.footer > div {
+	margin: 10px;
 }
 /*
 
@@ -108,7 +129,7 @@ Killers
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
-	gap: 10px;
+	margin-bottom: 10px;
 }
 /*
 
@@ -193,6 +214,8 @@ Perk description modal
 	padding: 20px 40px;
 	width: 70%;
 	height: fit-content;
+	max-height: 90%;
+	overflow-y: auto;
 	border-radius: 8px;
 	background-color: var(--bg-secondary);
 }
@@ -203,4 +226,41 @@ Perk description modal
 .perkImage {
 	float: right;
 	filter: drop-shadow(4px 4px 8px black);
+}
+/*
+
+Changes for mobile
+
+*/
+@media screen and (max-width: 800px) {
+	#killers, .builds {
+		grid-template-columns: auto;
+	}
+	.killer {
+		grid-template:
+			"name"
+			"build";
+		grid-template-rows: auto;
+		grid-template-columns: auto;
+		min-width: 300px;
+	}
+	.killer > .image {
+		position: absolute;
+		bottom: 0;
+		width: auto;
+		height: calc(100% - 50px);
+		z-index: -1;
+		filter: blur(3px);
+		left: 0;
+		right: 0;
+		margin: auto;
+		max-width: 100%;
+	}
+	.modal {
+		width: 90%;
+		padding: 10px 20px;
+	}
+	.perkImage {
+		display: none;
+	}
 }
