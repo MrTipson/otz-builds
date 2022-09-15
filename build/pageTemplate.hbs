@@ -1,0 +1,60 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Killer builds</title>
+	<link rel="stylesheet" href="css/stylesheet.css">
+	<template id="modalTemplate">
+		<div class="modalbg">
+			<div class="modal">
+				<h2 class="perkName"></h2>
+				<p class="perkDescription"></p>
+			</div>
+		</div>
+	</template>
+</head>
+
+<body>
+	<div class="body">
+		<h2 class="text-strong">Otzdarva killer builds</h2>
+		<h4 class="text-weak">Last changed: <span id="changeDate">{{changeDate}}</span></h4>
+		<nav id="sidebar">
+			<div class="sidebarTab"></div>
+			<div class="sidebarContent"></div>
+		</nav>
+		<div id="killers"></div>
+		<div class="footer">
+			{{#each killers as |killer|}}
+			<div class="killer" id="{{killer.name}}">
+				<h3 class="killerName">{{killer.name}}</h3>
+				<img class="image" alt="{{killer.name}}" src="img/killers/{{killer.name}}.png">
+				<div class="builds">
+					{{#each builds as |build|}}
+					<div class="build">
+						<div class="buildName">{{build.name}}</div>
+						<div class="perks">
+							{{#each this.perks as |perk|}}
+							<img class="perk" alt="{{perk.name}}" src="{{perk.filename}}" data-id="{{perk.id}}">
+							{{/each}}
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+			{{/each}}
+			<div>Images and perk descriptions are obtained from the
+				<a href="https://deadbydaylight.fandom.com/wiki/Dead_by_Daylight_Wiki">Dead by Daylight wiki</a>.
+			</div>
+			<div>
+				<a href="https://github.com/MrTipson/otz-builds" title="GitHub"><img src="img/github.png" alt="GitHub"></a>
+				<a href="https://www.twitch.tv/otzdarva" title="Twitch"><img src="img/twitch.png" alt="Twitch"></a>
+				<a href="https://www.discord.gg/otzdarva" title="Discord"><img src="img/discord.png" alt="Discord"></a>
+				<a href="https://www.youtube.com/channel/UCUhGCdMIFqcRlHb_dthD5Xw" title="Youtube"><img src="img/youtube.png" alt="YouTube"></a>
+				<a href="https://twitter.com/otzdarvayt" title="Twitter"><img src="img/twitter.png" alt="Twitter"></a>
+			</div>
+		</div>
+	</div>
+	<script src="//unpkg.com/string-similarity/umd/string-similarity.min.js"></script>
+	<script src="js/papaparse.min.js"></script>
+	<script src="js/data-adapter.js"></script>
+	<script src="js/page.js"></script>
+</body>
