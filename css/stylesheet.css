@@ -84,6 +84,9 @@ h2, h3, h4 {
 	overflow-y: auto;
 	box-sizing: border-box;
 }
+.sidebarContent > a:hover {
+	color:rgba(255, 255, 0, 0.666);
+}
 .sidebarTab::after {
 	position: absolute;
 	top: 40%;
@@ -106,8 +109,8 @@ h2, h3, h4 {
 	text-align: center;
 }
 .footer img {
-	width: 24px;
-	height: 24px;
+	max-width: 24px;
+	max-height: 24px;
 }
 .footer > div {
 	margin: 10px;
@@ -197,6 +200,9 @@ Builds
 	height: 64px;
 	cursor: pointer;
 }
+.perk:hover {
+	filter: drop-shadow(0px 0px 1px rgba(255, 255, 0, 0.444));
+}
 /*
 
 Perk description modal
@@ -262,5 +268,8 @@ Changes for mobile
 	}
 	.perkImage {
 		display: none;
+	}
+	.build {
+		background-color: rgba(0, 0, 0, 0.656);
 	}
 }
