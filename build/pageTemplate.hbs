@@ -19,10 +19,13 @@
 		<h4 class="text-weak">Last changed: <span id="changeDate">{{changeDate}}</span></h4>
 		<nav id="sidebar">
 			<div class="sidebarTab"></div>
-			<div class="sidebarContent"></div>
+			<div class="sidebarContent">
+				{{#each killers as |killer|}}
+				<a href="#{{killer.name}}">{{killer.name}}</a>
+				{{/each}}
+			</div>
 		</nav>
-		<div id="killers"></div>
-		<div class="footer">
+		<div id="killers">
 			{{#each killers as |killer|}}
 			<div class="killer" id="{{killer.name}}">
 				<h3 class="killerName">{{killer.name}}</h3>
@@ -41,6 +44,8 @@
 				</div>
 			</div>
 			{{/each}}
+		</div>
+		<div class="footer">
 			<div>Images and perk descriptions are obtained from the
 				<a href="https://deadbydaylight.fandom.com/wiki/Dead_by_Daylight_Wiki">Dead by Daylight wiki</a>.
 			</div>
@@ -53,8 +58,5 @@
 			</div>
 		</div>
 	</div>
-	<script src="//unpkg.com/string-similarity/umd/string-similarity.min.js"></script>
-	<script src="js/papaparse.min.js"></script>
-	<script src="js/data-adapter.js"></script>
 	<script src="js/page.js"></script>
 </body>

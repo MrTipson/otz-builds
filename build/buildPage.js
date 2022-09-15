@@ -7,7 +7,7 @@ const template = hbs.compile(fs.readFileSync("pageTemplate.hbs", { encoding: 'ut
 const Papa = require("papaparse");
 const stringSimilarity = require("string-similarity");
 
-const perks = JSON.parse(fs.readFileSync("../json/perks.json"));
+const perks = JSON.parse(fs.readFileSync("../perks.json"));
 for (let i = 0; i < perks.length; i++) perks[i].id = i;
 
 function parseData(callback) {

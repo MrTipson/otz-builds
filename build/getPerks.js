@@ -24,5 +24,5 @@ const { JSDOM } = require('jsdom');
 	// Sort so binary search can be used
 	perks.sort(function (a, b) { return a.name.localeCompare(b.name, 'en') });
 	// Write back into file
-	fs.writeFileSync("json/perks.json", JSON.stringify(perks, null, '\t'));
+	fs.writeFileSync("../perks.json", JSON.stringify(perks, null, '\t'));
 }());
