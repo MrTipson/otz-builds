@@ -11,7 +11,7 @@
 }
 html {
     /*scroll-behavior: smooth;*/
-	scroll-padding-top: 10px; 
+	scroll-padding-top: 20px;
 }
 body {
 	margin: 0;
@@ -55,6 +55,7 @@ h2, h3, h4 {
 	top: 0px;
 	height: 100%;
 	width: 300px;
+	padding: 5px;
 	background-color: var(--bg-primary);
 	transition: left .25s ease-in-out;
 	box-shadow: 2px 2px 12px black;
@@ -79,7 +80,7 @@ h2, h3, h4 {
 	box-shadow: 5px 3px 7px -2px black;
 }
 .sidebarContent {
-	padding: 20px;
+	padding: 10px;
 	height: 100%;
 	overflow-y: auto;
 	box-sizing: border-box;
@@ -103,10 +104,12 @@ h2, h3, h4 {
 	transform: rotate(135deg);
 }
 .footer {
-	width: 100%;
+	width: calc(100% - 20px);
 	padding: 20px;
 	background-color: var(--bg-darken);
 	text-align: center;
+	margin: 10px;
+	border-radius: 8px;
 }
 .footer img {
 	max-width: 24px;
@@ -232,6 +235,21 @@ Perk description modal
 .perkImage {
 	float: right;
 	filter: drop-shadow(4px 4px 8px black);
+}
+/*
+
+Scroll
+
+*/
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background-color: var(--text-normal);
+}
+::-webkit-scrollbar-track {
+	background-color: transparent;
 }
 /*
 

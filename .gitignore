@@ -1,4 +1,4 @@
 index.html
 build/node_modules
 build/package-lock.json
-json/perks.json
+perks.json
