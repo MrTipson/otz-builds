@@ -3,6 +3,8 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="cache-control" content="max-age=864000" />
+	<meta name="description" content="Dead by Daylight killer builds by Otzdarva.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Killer builds</title>
 	<link rel="stylesheet" href="css/stylesheet.css">
@@ -33,14 +35,14 @@
 			{{#each killers as |killer|}}
 			<div class="killer" id="{{killer.name}}">
 				<h3 class="killerName">{{killer.name}}</h3>
-				<img class="image" alt="{{killer.name}}" src="img/killers/{{killer.name}}.png">
+				<img class="image" alt="{{killer.name}}" src="img/killers/{{killer.name}}.png" loading="lazy">
 				<div class="builds">
 					{{#each builds as |build|}}
 					<div class="build">
 						<div class="buildName">{{build.name}}</div>
 						<div class="perks">
 							{{#each this.perks as |perk|}}
-							<img class="perk" alt="{{perk.name}}" src="{{perk.filename}}" data-id="{{perk.id}}">
+							<img class="perk" alt="{{perk.name}}" src="{{perk.filename}}" data-id="{{perk.id}}" loading="lazy">
 							{{/each}}
 						</div>
 					</div>
