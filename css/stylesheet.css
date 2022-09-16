@@ -157,6 +157,7 @@ Killer
 	background-color: var(--bg-darken);
 	min-width: 800px;
 	column-gap: 1em;
+	box-shadow: 1px 1px 6px black;
 }
 .killer:target {
 	outline: 2px solid yellow;
@@ -190,6 +191,7 @@ Builds
 	padding: 8px;
 	border-radius: 8px;
 	margin: 8px;
+	box-shadow: 0px 1px 1px white;
 }
 .buildName {
 	text-align: center;
@@ -204,7 +206,7 @@ Builds
 	cursor: pointer;
 }
 .perk:hover {
-	filter: drop-shadow(0px 0px 1px rgba(255, 255, 0, 0.7));
+	box-shadow: 0px 1px 0px white;
 }
 /*
 
