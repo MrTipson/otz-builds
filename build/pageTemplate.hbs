@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,8 +21,10 @@
 
 <body>
 	<div class="body">
-		<h2 class="text-strong">Otzdarva killer builds</h2>
-		<h4 class="text-weak">Last changed: <span id="changeDate">{{changeDate}}</span></h4>
+		<div class="header">
+			<h2 class="text-strong">Otzdarva killer builds</h2>
+			<h4 class="text-weak">Last changed: <span id="changeDate">{{changeDate}}</span></h4>
+		</div>
 		<nav id="sidebar">
 			<div class="sidebarTab"></div>
 			<div class="sidebarContent">
@@ -35,7 +37,7 @@
 			{{#each killers as |killer|}}
 			<div class="killer" id="{{killer.name}}">
 				<h3 class="killerName">{{killer.name}}</h3>
-				<img class="image" alt="{{killer.name}}" src="img/killers/{{killer.name}}.png" loading="lazy">
+				<img class="image" alt="{{killer.name}}" src="img/killers/{{killer.name}}.png">
 				<div class="builds">
 					{{#each builds as |build|}}
 					<div class="build">
