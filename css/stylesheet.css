@@ -123,9 +123,9 @@ h2, h3, h4 {
 Generic
 
 */
-.text-strong { color: var(--text-strong); }
-.text-normal { color: var(--text-normal); }
-.text-weak { color: var(--text-weak); }
+.textStrong { color: var(--text-strong); }
+.textNormal { color: var(--text-normal); }
+.textWeak { color: var(--text-weak); }
 /*
 
 Killers
@@ -237,6 +237,9 @@ Perk description modal
 .perkImage {
 	float: right;
 	filter: drop-shadow(4px 4px 8px black);
+}
+.perkKiller {
+	margin: 0;
 }
 /*
 

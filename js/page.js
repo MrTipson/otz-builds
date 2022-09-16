@@ -18,6 +18,11 @@ sidebar.addEventListener("click", function (event) {
 function showPerkDetails(perkid) {
 	const modalTemplate = document.getElementById("modalTemplate").content.cloneNode(true);
 	const modal = modalTemplate.querySelector(".modalbg");
+	if (perks[perkid].killer) {
+		modal.querySelector(".perkKiller").textContent = `Teachable perk from the ${perks[perkid].killer}`;
+	} else {
+		modal.querySelector(".perkKiller").textContent = `Common perk`;
+	}
 	modal.querySelector(".perkName").textContent = perks[perkid].name;
 	modal.querySelector(".perkDescription").innerHTML = decodeURI(perks[perkid].desc);
 	const img = document.createElement("img");

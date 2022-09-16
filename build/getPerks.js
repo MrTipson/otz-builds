@@ -18,7 +18,9 @@ const { JSDOM } = require('jsdom');
 				filename: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/, ""),
 				name: x.querySelectorAll("a")[1].title,
 				// Description is URI encoded for simplicity
-				desc: encodeURI(x.querySelector(".formattedPerkDesc").innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/"))
+				desc: encodeURI(x.querySelector(".formattedPerkDesc").innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
+				killer: x.children[3].querySelectorAll("a")[0]?.textContent,
+				killerimg: x.children[3].querySelectorAll("a")[1]?.href.replace(/\/revision\/latest.+/, "")
 			}
 		});
 	// Sort so binary search can be used

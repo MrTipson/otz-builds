@@ -9,6 +9,19 @@ const stringSimilarity = require("string-similarity");
 
 const perks = JSON.parse(fs.readFileSync("../perks.json"));
 for (let i = 0; i < perks.length; i++) perks[i].id = i;
+// I'm not the biggest fan of the hardcoded things here
+// But I think its worth since it allows auto grabbing images
+let killerImages = new Set(perks.map((x) => x?.killerimg));
+killerImages.delete(undefined);
+killerImages = [...killerImages];
+// Since demogorgon's teachables became common perks, his image won't be on the list
+// So sadly, this is hardcoded
+killerImages.push("https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6d/K17_charSelect_portrait.png");
+killerImages.sort(function (a, b) { return a.split("/").pop().localeCompare(b.split("/").pop(), 'en', { numeric: true }); });
+// Hardcode order so huntress comes before the other paid killers
+// This is done to reflect the spreadsheet order
+const huntress = killerImages.splice(7, 1);
+killerImages.splice(4, 0, huntress);
 
 function parseData(callback) {
 	// Fetch builds spreadsheet
@@ -42,6 +55,7 @@ function parseKiller(data, row, col) {
 	let killer = {};
 	killer.name = data[row][col];
 	killer.builds = [];
+	killer.img = killerImages.splice(0, 1);
 	// Loop over columns (builds)
 	for (let i = 1; i < 8; i += 2) {
 		let build = {};
