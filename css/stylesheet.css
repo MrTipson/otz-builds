@@ -217,7 +217,10 @@ Perk description modal
 .modalbg {
 	background-color: rgba(0, 0, 0, 0.66);
 	position: fixed;
-	inset: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
