@@ -64,7 +64,9 @@ function parseKiller(data, row, col) {
 		// Loop over rows (perks)
 		for (let j = 4; j < 8; j++) {
 			let perkid = findPerk(data[row + j][col + i]);
-			build.perks.push(perks[perkid]);
+			if (perkid !== -1) {
+				build.perks.push(perks[perkid]);
+			}
 		}
 		killer.builds.push(build);
 	}
