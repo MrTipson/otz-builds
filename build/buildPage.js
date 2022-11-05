@@ -66,6 +66,8 @@ function parseKiller(data, row, col) {
 			let perkid = findPerk(data[row + j][col + i]);
 			if (perkid !== -1) {
 				build.perks.push(perks[perkid]);
+			} else {
+				console.log(`::warning title=${killer.name} [ ${build.name} ]::Couldn't match perk '${data[row + j][col + i]}'`);
 			}
 		}
 		killer.builds.push(build);
