@@ -15,20 +15,20 @@ sidebar.addEventListener("click", function (event) {
 	}
 });
 
-function showPerkDetails(perkid) {
+function showPerkDetails(role, perkid) {
 	const modalTemplate = document.getElementById("modalTemplate").content.cloneNode(true);
 	const modal = modalTemplate.querySelector(".modalbg");
-	if (perks[perkid].killer) {
-		modal.querySelector(".perkKiller").textContent = `Teachable perk from the ${perks[perkid].killer}`;
+	if (perks[role][perkid].character) {
+		modal.querySelector(".perkCharacter").textContent = `Teachable perk from ${role == "killer" ? "the " : ""}${perks[role][perkid].character}`;
 	} else {
-		modal.querySelector(".perkKiller").textContent = `Common perk`;
+		modal.querySelector(".perkCharacter").textContent = `Common perk`;
 	}
-	modal.querySelector(".perkName").textContent = perks[perkid].name;
-	modal.querySelector(".perkDescription").innerHTML = decodeURI(perks[perkid].desc);
+	modal.querySelector(".perkName").textContent = perks[role][perkid].perkName;
+	modal.querySelector(".perkDescription").innerHTML = decodeURI(perks[role][perkid].description);
 	const img = document.createElement("img");
 	img.classList.add("perkImage");
-	img.src = perks[perkid].filename;
-	img.alt = perks[perkid].name;
+	img.src = perks[role][perkid].perkImage;
+	img.alt = perks[role][perkid].perkName;
 	modal.querySelector(".perkDescription").prepend(img);
 	modal.addEventListener("click", (event) => {
 		if (event.target == modal) {
@@ -41,7 +41,7 @@ function showPerkDetails(perkid) {
 
 document.addEventListener("click", function (event) {
 	if (event.target.classList.contains("perk")) {
-		showPerkDetails(event.target.dataset.id);
+		showPerkDetails(event.target.dataset.role, event.target.dataset.id);
 	} else if (event.target.classList.contains("sidebarTab")) {
 		document.querySelector("nav").classList.toggle("open");
 	}

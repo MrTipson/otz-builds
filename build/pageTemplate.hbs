@@ -4,19 +4,19 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="author" content="MrTipson">
-	<meta name="keywords" content="Otzdarva, Dead by Daylight, DBD, Killer, Build, Otz, Perk">
-	<meta name="description" content="View Otzdarva's recommended builds in a more digestible format and keep up to date with fun builds for all killers in Dead by Daylight.">
+	<meta name="keywords" content="Otzdarva, Dead by Daylight, DBD, Killer, Survivor, Build, Otz, Perk">
+	<meta name="description" content="View Otzdarva's recommended builds in a more digestible format and keep up to date with fun builds in Dead by Daylight.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://mrtipson.github.io/otz-builds/img/favicon.png" />
 	<meta property="og:url" content="https://otzdarva.com/builds">
-	<title>Otzdarva Recommended Killer Builds</title>
+	<title>Otzdarva Recommended Builds</title>
 	<link rel="stylesheet" href="css/stylesheet.css">
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<template id="modalTemplate">
 		<div class="modalbg">
 			<div class="modal">
-				<h4 class="textWeak perkKiller"></h4>
+				<h4 class="textWeak perkCharacter"></h4>
 				<h2 class="perkName"></h2>
 				<p class="perkDescription"></p>
 			</div>
@@ -27,37 +27,73 @@
 <body>
 	<div class="body">
 		<div class="header">
-			<div id="description" style="position: absolute; top: -100%;">View Otzdarva's recommended builds in a more digestible format and keep up to date with fun builds for all killers in Dead by Daylight.</div>
-			<h2 class="textStrong">Otzdarva Recommended Killer Builds</h2>
+			<div id="description" style="position: absolute; top: -100%;">View Otzdarva's recommended builds in a more digestible format and keep up to date with fun builds in Dead by Daylight.</div>
+			<h2 class="textStrong">Otzdarva Recommended Builds</h2>
 			<h4 class="textWeak">Last changed: <span id="changeDate">{{changeDate}}</span></h4>
 		</div>
-		<nav id="sidebar">
-			<div class="sidebarTab"></div>
-			<div class="sidebarContent">
-				{{#each killers as |killer|}}
-				<a href="#{{killer.name}}">{{killer.name}}</a>
-				{{/each}}
-			</div>
-		</nav>
-		<div id="killers">
-			{{#each killers as |killer|}}
-			<div class="killer" id="{{killer.name}}">
-				<h3 class="killerName">{{killer.name}}</h3>
-				<img class="image" alt="{{killer.name}}" src="{{killer.img}}">
-				<div class="builds">
-					{{#each builds as |build|}}
-					<div class="build">
-						<div class="buildName">{{build.name}}</div>
-						<div class="perks">
-							{{#each this.perks as |perk|}}
-							<img class="perk" title="{{perk.name}}" alt="{{perk.name}}" src="{{perk.filename}}" data-id="{{perk.id}}" loading="lazy">
+		<div class="tabs">
+			<input type="radio" name="role" id="selectKillers" value="killer" checked="">
+			<label for="selectKillers">
+				<img src="https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/06/IconHelpLoading_killer.png" alt="Killers">
+				Killers
+			</label>
+			<input type="radio" name="role" id="selectSurvivors" value="survivor">
+			<label for="selectSurvivors">
+				<img src="https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b3/IconHelpLoading_survivor.png" alt="Survivors">
+				Survivors
+			</label>
+			<div class="killerTab">
+				<nav id="sidebar">
+					<div class="sidebarTab"></div>
+					<div class="sidebarContent">
+						{{#each killers as |killer|}}
+						<a href="#{{killer.name}}">{{killer.name}}</a>
+						{{/each}}
+					</div>
+				</nav>
+				<div class="characters" id="killers">
+					{{#each killers as |killer|}}
+					<div class="character" id="{{killer.name}}">
+						<h3 class="characterName">{{killer.name}}</h3>
+						<img class="image" alt="{{killer.name}}" src="{{killer.img}}">
+						<div class="builds">
+							{{#each builds as |build|}}
+							<div class="build">
+								<div class="buildName">{{build.name}}</div>
+								<div class="perks">
+									{{#each this.perks as |perk|}}
+									<img class="perk" title="{{perk.perkName}}" alt="{{perk.perkName}}" src="{{perk.perkImage}}" data-role="killer" data-id="{{perk.id}}" loading="lazy">
+									{{/each}}
+								</div>
+							</div>
 							{{/each}}
 						</div>
 					</div>
 					{{/each}}
 				</div>
 			</div>
-			{{/each}}
+			<div class="survivorTab">
+				<div class="characters" id="survivors">
+					{{#each survivors as |survivor|}}
+					<div class="character" id="{{survivor.name}}">
+						<h3 class="characterName">{{survivor.name}}</h3>
+						<img class="image" alt="{{survivor.name}}" src="{{survivor.img}}">
+						<div class="builds">
+							{{#each builds as |build|}}
+							<div class="build">
+								<div class="buildName">{{build.name}}</div>
+								<div class="perks">
+									{{#each this.perks as |perk|}}
+									<img class="perk" title="{{perk.perkName}}" alt="{{perk.perkName}}" src="{{perk.perkImage}}" data-role="survivor" data-id="{{perk.id}}" loading="lazy">
+									{{/each}}
+								</div>
+							</div>
+							{{/each}}
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
 		</div>
 		<div class="footer">
 			<div>Images and perk descriptions are obtained from the

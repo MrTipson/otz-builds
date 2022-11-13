@@ -5,13 +5,19 @@ const fs = require("fs");
 const hbs = require("handlebars");
 const template = hbs.compile(fs.readFileSync("pageTemplate.hbs", { encoding: 'utf8', flag: 'r' }));
 const Papa = require("papaparse");
-const stringSimilarity = require("string-similarity");
+const Fuse = require('fuse.js');
 
 const perks = JSON.parse(fs.readFileSync("../perks.json"));
-for (let i = 0; i < perks.length; i++) perks[i].id = i;
+for (let i = 0; i < perks.killer.length; i++) perks.killer[i].id = i;
+for (let i = 0; i < perks.survivor.length; i++) perks.survivor[i].id = i;
+
+const FuseOptions = { threshold: 0.85, keys: ["perkName"] };
+const FuseKiller = new Fuse(perks["killer"], FuseOptions);
+const FuseSurvivor = new Fuse(perks["survivor"], FuseOptions);
+
 // I'm not the biggest fan of the hardcoded things here
 // But I think its worth since it allows auto grabbing images
-let killerImages = new Set(perks.map((x) => x?.killerimg));
+let killerImages = new Set(perks.killer.map((x) => x?.characterImage));
 killerImages.delete(undefined);
 killerImages = [...killerImages];
 // Since demogorgon's teachables became common perks, his image won't be on the list
@@ -22,6 +28,8 @@ killerImages.sort(function (a, b) { return a.split("/").pop().localeCompare(b.sp
 // This is done to reflect the spreadsheet order
 const huntress = killerImages.splice(7, 1);
 killerImages.splice(4, 0, huntress);
+
+let survivorImages = ["img/OtzZarina.png", "img/OtzSWF.png"];
 
 function parseData(callback) {
 	// Fetch builds spreadsheet
@@ -36,9 +44,14 @@ function parseData(callback) {
 					// Grab change date
 					ret.lastUpdate = result[3][2];
 					ret.killers = [];
+					ret.survivors = [];
 					// Parse all killers
 					for (let i = 10; i < result.length; i += 13) {
-						ret.killers.push(parseKiller(result, i, 1));
+						ret.killers.push(parseCharacter("killer", result, i, 1));
+					}
+					// Parse all survivors
+					for (let i = 10; result[i][10]; i += 13) {
+						ret.survivors.push(parseCharacter("survivor", result, i, 10));
 					}
 					callback(ret);
 				}
@@ -48,14 +61,19 @@ function parseData(callback) {
 }
 
 // Function that parses each individual killer
+// Role: "survivor" or "killer"
 // Data: parsed csv file as 2D array
 // Row, col: indexes of killer's name
 // All other values are retrieved based on offsets from the name
-function parseKiller(data, row, col) {
-	let killer = {};
-	killer.name = data[row][col];
-	killer.builds = [];
-	killer.img = killerImages.splice(0, 1);
+function parseCharacter(role, data, row, col) {
+	let character = {};
+	character.name = data[row][col];
+	character.builds = [];
+	if (role === "killer") {
+		character.img = killerImages.splice(0, 1);
+	} else {
+		character.img = survivorImages.splice(0, 1);
+	}
 	// Loop over columns (builds)
 	for (let i = 1; i < 8; i += 2) {
 		let build = {};
@@ -63,33 +81,25 @@ function parseKiller(data, row, col) {
 		build.perks = [];
 		// Loop over rows (perks)
 		for (let j = 4; j < 8; j++) {
-			let perkid = findPerk(data[row + j][col + i]);
-			if (perkid !== -1) {
-				build.perks.push(perks[perkid]);
+			let perk = findPerk(role, data[row + j][col + i]);
+			if (perk) {
+				build.perks.push(perk);
 			} else {
-				console.log(`::warning title=${killer.name} [ ${build.name} ]::Couldn't match perk '${data[row + j][col + i]}'`);
+				console.log(`::warning title=${character.name} [ ${build.name} ]::Couldn't match perk '${data[row + j][col + i]}'`);
 			}
 		}
-		killer.builds.push(build);
+		character.builds.push(build);
 	}
-	return killer;
+	return character;
 }
 
-// Binary search
-function findPerk(perkName) {
-	let lower = 0;
-	let upper = perks.length - 1;
-	while (lower <= upper) {
-		let mid = Math.floor((lower + upper) / 2);
-		if (stringSimilarity.compareTwoStrings(perkName, perks[mid].name) > 0.85) {
-			return mid;
-		} else if (perks[mid].name > perkName) {
-			upper = mid - 1;
-		} else {
-			lower = mid + 1;
-		}
+// Role: "survivor" or "killer"
+function findPerk(role, perkName) {
+	if (role == "killer") {
+		return FuseKiller.search(perkName)[0]?.item;
+	} else {
+		return FuseSurvivor.search(perkName)[0]?.item;
 	}
-	return -1;
 }
 
-parseData(data => fs.writeFileSync("../index.html", template({ killers: data.killers, changeDate: data.lastUpdate })));
+parseData(data => fs.writeFileSync("../index.html", template({ killers: data.killers, survivors: data.survivors, changeDate: data.lastUpdate })));

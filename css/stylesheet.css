@@ -8,10 +8,14 @@
 	--text-strong: white;
 	--text-normal: rgb(220, 220, 220);
 	--text-weak: rgb(156, 156, 156);
+	--color-killer: #f88300f7;
+	--color-survivor: #0487d2;
+	--color-anchoring: #ff6100;
 }
 html {
     /*scroll-behavior: smooth;*/
 	scroll-padding-top: 20px;
+	height: 100%;
 }
 body {
 	margin: 0;
@@ -19,6 +23,7 @@ body {
 	color: var(--text-normal);
 	font-family: monospace;
 	font-size: 13pt;
+	height: 100%;
 }
 .blur > .body {
 	filter: blur(5px) brightness(0.5);
@@ -30,6 +35,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	height: 100%;
 }
 a, a:visited {
 	color: cyan;
@@ -47,6 +53,11 @@ h2, h3, h4 {
 	width: 100%;
 	text-align: center;
 }
+/*
+
+Sidebar
+
+*/
 #sidebar {
 	font-size: 16pt;
 	z-index: 1;
@@ -87,7 +98,7 @@ h2, h3, h4 {
 	overscroll-behavior: contain;
 }
 .sidebarContent > a:hover {
-	color:yellow;
+	color: var(--color-anchoring);
 }
 .sidebarTab::after {
 	position: absolute;
@@ -104,6 +115,11 @@ h2, h3, h4 {
 .open > .sidebarTab::after {
 	transform: rotate(135deg);
 }
+/*
+
+Footer
+
+*/
 .footer {
 	width: calc(100% - 20px);
 	padding: 20px;
@@ -121,6 +137,57 @@ h2, h3, h4 {
 }
 /*
 
+Tabs
+
+*/
+.tabs {
+	width: 100%;
+	display: grid;
+	grid-template:
+		"labels labels"
+		"tab tab";
+	grid-template-rows: min-content auto;
+	align-items: center;
+	flex-grow: 1;
+	gap: 10px;
+}
+.killerTab, .survivorTab {
+	grid-area: tab;
+	display: block;
+	width: 100%;
+}
+input[type="radio"] {
+	display: none;
+}
+label[for="selectKillers"] {
+	justify-self: end;
+}
+input#selectKillers:checked + label,
+input#selectSurvivors:checked + label {
+	--character: var(--color-killer);
+	outline: 2px solid var(--character);
+	outline-offset: 2px;
+	border-radius: 8px;
+}
+input#selectSurvivors:checked + label { --character: var(--color-survivor); }
+input#selectKillers:checked ~ .survivorTab { display: none; }
+input#selectKillers:checked ~ .killerTab{ --character: var(--color-killer); }
+input#selectSurvivors:checked ~ .killerTab { display: none; }
+input#selectSurvivors:checked ~ .survivorTab{ --character: var(--color-survivor); }
+.tabs > label {
+	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 10px;
+	width: fit-content;
+}
+label > img {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+/*
+
 Generic
 
 */
@@ -129,10 +196,10 @@ Generic
 .textWeak { color: var(--text-weak); }
 /*
 
-Killers
+Characters
 
 */
-#killers {
+.characters {
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
@@ -140,10 +207,10 @@ Killers
 }
 /*
 
-Killer
+Character
 
 */
-.killer {
+.character {
 	position: relative; /**/
 	box-sizing: border-box;
 	display: grid;
@@ -158,18 +225,21 @@ Killer
 	background-color: var(--bg-darken);
 	min-width: 800px;
 	column-gap: 1em;
-	box-shadow: 1px 1px 6px black;
+	box-shadow: 1px 1px 6px var(--character);
 }
-.killer:target {
-	outline: 2px solid yellow;
+.character:target {
+	outline: 2px solid var(--color-anchoring);
 }
-.killer > .image {
+.character > .image {
 	grid-area: img;
-	height: 95%;
+	height: -webkit-fill-available;
 	width: auto;
 	align-self: center;
+	max-height: 300px;
+	max-width: 225px;
+	object-fit: contain;
 }
-.killer > .killerName {
+.character > .characterName {
 	grid-area: name;
 	color: var(--text-strong);
 	align-self: baseline;
@@ -242,7 +312,7 @@ Perk description modal
 	float: right;
 	filter: drop-shadow(4px 4px 8px black);
 }
-.perkKiller {
+.perkCharacter {
 	margin: 0;
 }
 /*
@@ -266,10 +336,10 @@ Changes for mobile
 
 */
 @media screen and (max-width: 800px) {
-	#killers, .builds {
+	.characters, .builds {
 		grid-template-columns: auto;
 	}
-	.killer {
+	.character {
 		grid-template:
 			"name"
 			"build";
@@ -277,7 +347,7 @@ Changes for mobile
 		grid-template-columns: auto;
 		min-width: 300px;
 	}
-	.killer > .image {
+	.character > .image {
 		position: absolute;
 		bottom: 0;
 		width: auto;
@@ -288,6 +358,7 @@ Changes for mobile
 		right: 0;
 		margin: auto;
 		max-width: 100%;
+		max-height: 100%;
 	}
 	.modal {
 		width: 90%;

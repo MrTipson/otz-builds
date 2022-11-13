@@ -1,9 +1,9 @@
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
-(async function () {
-	// Grab webpage
-	const dom = await JSDOM.fromURL("https://deadbydaylight.fandom.com/wiki/Killer_Perks");
+// Parse perks from the wikipedia perk tables
+async function parsePerks(url) {
+	const dom = await JSDOM.fromURL(url);
 	const { document } = dom.window;
 	// Remove mini icons next to links
 	document.querySelectorAll(".formattedPerkDesc")
@@ -15,16 +15,25 @@ const { JSDOM } = require('jsdom');
 		.map((x) => {
 			// Remap each row into object
 			return {
-				filename: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/, ""),
-				name: x.querySelectorAll("a")[1].title,
+				perkImage: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/, ""),
+				perkName: x.querySelectorAll("a")[1].title,
 				// Description is URI encoded for simplicity
-				desc: encodeURI(x.querySelector(".formattedPerkDesc").innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
-				killer: x.children[3].querySelectorAll("a")[0]?.textContent,
-				killerimg: x.children[3].querySelectorAll("a")[1]?.href.replace(/\/revision\/latest.+/, "")
+				description: encodeURI(x.querySelector(".formattedPerkDesc").innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
+				character: x.children[3].querySelectorAll("a")[0]?.title,
+				characterImage: x.children[3].querySelectorAll("a")[1]?.href.replace(/\/revision\/latest.+/, "")
 			}
 		});
 	// Sort so binary search can be used
-	perks.sort(function (a, b) { return a.name.localeCompare(b.name, 'en') });
+	perks.sort(function (a, b) { return a.perkName.localeCompare(b.perkName, 'en') });
+	return perks;
+}
+
+(async function () {
+	// Grab webpage
+	let perks = {
+		killer: await parsePerks("https://deadbydaylight.fandom.com/wiki/Killer_Perks"),
+		survivor: await parsePerks("https://deadbydaylight.fandom.com/wiki/Survivor_Perks")
+	}
 	// Write back into file
 	fs.writeFileSync("../perks.json", JSON.stringify(perks, null, '\t'));
 }());
