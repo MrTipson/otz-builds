@@ -42,9 +42,10 @@ function parseData(callback) {
 					result = result.data;
 					let ret = {}
 					// Grab change date
-					ret.lastUpdate = result[3][2];
+					ret.changeDate = result[3][2];
 					ret.killers = [];
 					ret.survivors = [];
+					ret.v = Date.now();
 					// Parse all killers
 					for (let i = 10; i < result.length; i += 13) {
 						ret.killers.push(parseCharacter("killer", result, i, 1));
@@ -102,4 +103,4 @@ function findPerk(role, perkName) {
 	}
 }
 
-parseData(data => fs.writeFileSync("../index.html", template({ killers: data.killers, survivors: data.survivors, changeDate: data.lastUpdate })));
+parseData(data => fs.writeFileSync("../index.html", template(data)));
