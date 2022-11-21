@@ -55,7 +55,9 @@
 					{{#each killers as |killer|}}
 					<div class="character" id="{{killer.name}}">
 						<h3 class="characterName">{{killer.name}}</h3>
-						<img class="image" alt="{{killer.name}}" src="{{killer.img}}">
+						<div class="image">
+							<img alt="{{killer.name}}" src="{{killer.img}}">
+						</div>
 						<div class="builds">
 							{{#each builds as |build|}}
 							<div class="build">
@@ -77,7 +79,9 @@
 					{{#each survivors as |survivor|}}
 					<div class="character" id="{{survivor.name}}">
 						<h3 class="characterName">{{survivor.name}}</h3>
-						<img class="image" alt="{{survivor.name}}" src="{{survivor.img}}">
+						<div class="image">
+							<img alt="{{survivor.name}}" src="{{survivor.img}}">
+						</div>
 						<div class="builds">
 							{{#each builds as |build|}}
 							<div class="build">

@@ -231,13 +231,19 @@ Character
 	outline: 2px solid var(--color-anchoring);
 }
 .character > .image {
+	position: relative;
 	grid-area: img;
-	height: -webkit-fill-available;
-	width: auto;
 	align-self: center;
 	max-height: 300px;
 	max-width: 225px;
+	width: fit-content;
+}
+.image > img {
+	display: block;
+	margin: auto;
 	object-fit: contain;
+	height: auto;
+	width: -webkit-fill-available;
 }
 .character > .characterName {
 	grid-area: name;
@@ -350,7 +356,6 @@ Changes for mobile
 	.character > .image {
 		position: absolute;
 		bottom: 0;
-		width: auto;
 		height: calc(100% - 50px);
 		z-index: -1;
 		filter: blur(3px);
