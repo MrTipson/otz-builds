@@ -380,3 +380,22 @@ Changes for mobile
 		background-color: rgba(0, 0, 0, 0.656);
 	}
 }
+#canv {
+	display: none;
+}
+input[type=checkbox] {
+	display: none;
+}
+.winterSettings {
+	margin: 10px;
+}
+.winterLabel {
+	margin: 10px;
+	display: inline-block;
+	outline: 2px solid green;
+	padding: 2px 5px;
+	outline-offset: 3px;
+	border-radius: 8px;
+}
+#wintertoggle:checked + label { outline-color: red; }
+#animationtoggle:checked + label { outline-color: red; }
