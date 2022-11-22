@@ -29,7 +29,7 @@ killerImages.sort(function (a, b) { return a.split("/").pop().localeCompare(b.sp
 const huntress = killerImages.splice(7, 1);
 killerImages.splice(4, 0, huntress);
 
-let survivorImages = ["img/OtzZarina.png", "img/OtzSWF.png"];
+let survivorImages = ["img/snowman_solo.png", "img/snowman_swf.png"];
 
 function parseData(callback) {
 	// Fetch builds spreadsheet
