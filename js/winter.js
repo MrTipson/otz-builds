@@ -56,17 +56,29 @@ function Snowy() {
 	}
 }
 /*________________________________________*/
-window.addEventListener('resize', function () {
+-window.addEventListener('resize', function () {
 	c.width = w = window.innerWidth;
 	c.height = h = window.innerHeight;
 }, false);
 
 let wintertoggle = document.getElementById("wintertoggle");
 let winterStylesheet = document.getElementById("winterStylesheet");
+// localstorage : ('winterIsEnabled', isEnabled)
+if (window.localStorage.getItem('winterIsEnabled') == 'false') {
+	winterStylesheet.disabled = true;
+	wintertoggle.checked = true;
+}
 wintertoggle.addEventListener("click", function (e) {
 	winterStylesheet.disabled = !winterStylesheet.disabled;
+	window.localStorage.setItem('winterIsEnabled', !winterStylesheet.disabled);
 });
 let animationtoggle = document.getElementById("animationtoggle");
+// localstorage : ('winterPaused': isPaused)
+if (window.localStorage.getItem('winterPaused') == 'true') {
+	paused = true;
+	animationtoggle.checked = true;
+}
 animationtoggle.addEventListener("click", function (e) {
 	paused = !paused;
+	window.localStorage.setItem('winterPaused', paused);
 });
