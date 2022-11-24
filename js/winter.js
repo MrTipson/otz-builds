@@ -3,6 +3,7 @@ var c = document.getElementById('canv'),
 var w = c.width = window.innerWidth,
 	h = c.height = window.innerHeight;
 let paused = false;
+let reload = false;
 
 Snowy();
 function Snowy() {
@@ -21,6 +22,11 @@ function Snowy() {
 	}
 	go();
 	function go() {
+		if (reload) {
+			reload = false;
+			Snowy();
+			return;
+		}
 		if (paused) {
 			setTimeout(go, 100);
 			return;
@@ -59,6 +65,7 @@ function Snowy() {
 -window.addEventListener('resize', function () {
 	c.width = w = window.innerWidth;
 	c.height = h = window.innerHeight;
+	reload = true;
 }, false);
 
 let wintertoggle = document.getElementById("wintertoggle");
