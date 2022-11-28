@@ -244,6 +244,7 @@ Character
 	object-fit: contain;
 	height: auto;
 	width: -webkit-fill-available;
+	width: -moz-available;
 }
 .character > .characterName {
 	grid-area: name;
