@@ -4,6 +4,7 @@ var w = c.width = window.innerWidth,
 	h = c.height = window.innerHeight;
 let paused = false;
 let reload = false;
+let winterStylesheet = document.getElementById("winterStylesheet");
 
 Snowy();
 function Snowy() {
@@ -22,13 +23,12 @@ function Snowy() {
 	}
 	go();
 	function go() {
+		if (winterStylesheet.disabled || paused) {
+			return;
+		}
 		if (reload) {
 			reload = false;
 			Snowy();
-			return;
-		}
-		if (paused) {
-			setTimeout(go, 100);
 			return;
 		}
 		window.requestAnimationFrame(go);
@@ -69,7 +69,6 @@ function Snowy() {
 }, false);
 
 let wintertoggle = document.getElementById("wintertoggle");
-let winterStylesheet = document.getElementById("winterStylesheet");
 // localstorage : ('winterIsEnabled', isEnabled)
 if (window.localStorage.getItem('winterIsEnabled') == 'false') {
 	winterStylesheet.disabled = true;
@@ -77,6 +76,7 @@ if (window.localStorage.getItem('winterIsEnabled') == 'false') {
 }
 wintertoggle.addEventListener("click", function (e) {
 	winterStylesheet.disabled = !winterStylesheet.disabled;
+	if (!winterStylesheet.disabled) Snowy();
 	window.localStorage.setItem('winterIsEnabled', !winterStylesheet.disabled);
 });
 let animationtoggle = document.getElementById("animationtoggle");
@@ -87,5 +87,6 @@ if (window.localStorage.getItem('winterPaused') == 'true') {
 }
 animationtoggle.addEventListener("click", function (e) {
 	paused = !paused;
+	if (!paused) Snowy();
 	window.localStorage.setItem('winterPaused', paused);
 });
