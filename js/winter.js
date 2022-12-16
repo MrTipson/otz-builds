@@ -23,15 +23,12 @@ function Snowy() {
 	}
 	go();
 	function go() {
-		if (winterStylesheet.disabled || paused) {
-			return;
-		}
+		if (winterStylesheet.disabled) return;
 		if (reload) {
 			reload = false;
 			Snowy();
 			return;
 		}
-		window.requestAnimationFrame(go);
 		$.clearRect(0, 0, w, h);
 		$.fillStyle = '#090909';
 		$.fillRect(0, 0, w, h);
@@ -47,6 +44,8 @@ function Snowy() {
 			if (f.x < - mv) f.x = w + mv;
 			f.draw();
 		}
+		if (paused) return;
+		window.requestAnimationFrame(go);
 	}
 	function Flake() {
 		this.draw = function () {
@@ -66,6 +65,8 @@ function Snowy() {
 	c.width = w = window.innerWidth;
 	c.height = h = window.innerHeight;
 	reload = true;
+	// If animation is paused (recursion in go was stopped), trigger a repaint
+	if (paused) Snowy();
 }, false);
 
 let wintertoggle = document.getElementById("wintertoggle");
