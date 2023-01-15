@@ -356,6 +356,7 @@ Changes for mobile
 		grid-template-rows: auto;
 		grid-template-columns: auto;
 		min-width: 300px;
+		height: 600px;
 	}
 	.character > .image {
 		position: absolute;
@@ -368,6 +369,9 @@ Changes for mobile
 		max-width: 100%;
 		max-height: 100%;
 		display: flex;
+	}
+	.image > img {
+		max-width: 100%;
 	}
 	.modal {
 		width: 90%;
