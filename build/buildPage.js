@@ -82,12 +82,32 @@ function parseCharacter(role, data, row, col) {
 		build.perks = [];
 		// Loop over rows (perks)
 		for (let j = 4; j < 8; j++) {
-			let perk = findPerk(role, data[row + j][col + i]);
-			if (perk) {
-				build.perks.push(perk);
-			} else {
-				console.log(`::warning title=${character.name} [ ${build.name} ]::Couldn't match perk '${data[row + j][col + i]}'`);
+			// Allow multiple entries per perk (alternatives)
+			let buildPerk = data[row + j][col + i].split("/");
+			let perkObject = {};
+
+			// Each perk of the build can have multiple entries, first valid one is taken as the 'main', others are 'alternatives'
+			for (perkStr of buildPerk) {
+				let perk = findPerk(role, perkStr);
+				if (perk) {
+					// First perk assigned
+					if (!perkObject.perk) {
+						perkObject.perk = perk;
+					} else { // Any alternative perks
+						if (!perkObject.alternatives) {
+							perkObject.alternatives = [];
+							perkObject.alternativesImg = perk.perkImage;
+						}
+						perkObject.alternatives.push(perk.id);
+					}
+				} else {
+					console.log(`::warning title=${character.name} [ ${build.name} ]::Couldn't match perk '${perkStr}'`);
+				}
 			}
+			// Stringify alternative perk array
+			if (perkObject.alternatives) perkObject.alternatives = perkObject.alternatives.toString();
+			// If perk was successfully found
+			if (perkObject.perk) build.perks.push(perkObject);
 		}
 		character.builds.push(build);
 	}
