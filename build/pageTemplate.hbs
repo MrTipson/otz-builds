@@ -15,6 +15,10 @@
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<template id="modalTemplate">
 		<div class="modalbg">
+			<div class="alternatives">
+				In this build, the following perks can also be used as a replacement:
+				<div class="alternativePerks"></div>
+			</div>
 			<div class="modal">
 				<h4 class="textWeak perkCharacter"></h4>
 				<h2 class="perkName"></h2>
@@ -62,8 +66,16 @@
 							<div class="build">
 								<div class="buildName">{{build.name}}</div>
 								<div class="perks">
-									{{#each this.perks as |perk|}}
-									<img class="perk" title="{{perk.perkName}}" alt="{{perk.perkName}}" src="{{perk.perkImage}}" data-role="killer" data-id="{{perk.id}}" loading="lazy">
+									{{#each this.perks as |perkObject|}}
+
+									{{#if perkObject.alternatives}}
+									<div class="perkWrapper hasAltPerks" style="--altImg: url({{perkObject.alternativesImg}});">
+									{{else}}
+									<div class="perkWrapper">
+									{{/if}}
+										<img class="perk" title="{{perkObject.perk.perkName}}" alt="{{perkObject.perk.perkName}}" src="{{perkObject.perk.perkImage}}" data-role="killer" data-id="{{perkObject.perk.id}}" {{#if perkObject.alternatives}}data-altPerks="{{perkObject.alternatives}}" {{/if}} loading="lazy">
+									</div>
+
 									{{/each}}
 								</div>
 							</div>
@@ -86,8 +98,16 @@
 							<div class="build">
 								<div class="buildName">{{build.name}}</div>
 								<div class="perks">
-									{{#each this.perks as |perk|}}
-									<img class="perk" title="{{perk.perkName}}" alt="{{perk.perkName}}" src="{{perk.perkImage}}" data-role="survivor" data-id="{{perk.id}}" loading="lazy">
+									{{#each this.perks as |perkObject|}}
+
+									{{#if perkObject.alternatives}}
+									<div class="perkWrapper hasAltPerks" style="--altImg: url({{perkObject.alternativesImg}});">
+									{{else}}
+									<div class="perkWrapper">
+									{{/if}}
+										<img class="perk" title="{{perkObject.perk.perkName}}" alt="{{perkObject.perk.perkName}}" src="{{perkObject.perk.perkImage}}" data-role="survivor" data-id="{{perkObject.perk.id}}" {{#if perkObject.alternatives}}data-altPerks="{{perkObject.alternatives}}" {{/if}} loading="lazy">
+									</div>
+
 									{{/each}}
 								</div>
 							</div>

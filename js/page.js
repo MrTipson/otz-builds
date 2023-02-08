@@ -15,9 +15,27 @@ sidebar.addEventListener("click", function (event) {
 	}
 });
 
-function showPerkDetails(role, perkid) {
+// Count of currently open modals
+let modalDepth = 0;
+function showPerkDetails(role, perkid, alternatives) {
 	const modalTemplate = document.getElementById("modalTemplate").content.cloneNode(true);
 	const modal = modalTemplate.querySelector(".modalbg");
+	if (alternatives) {
+		let altIds = alternatives.split(",");
+		// modal.querySelector(".alternatives").textContent = altIds.map(x => perks[role][x].perkName);
+		for (altid of altIds) {
+			let img = document.createElement("img");
+			img.title = perks[role][altid].perkName;
+			img.alt = perks[role][altid].perkName;
+			img.src = perks[role][altid].perkImage;
+			img.classList.add("perk");
+			img.dataset.role = role;
+			img.dataset.id = altid;
+			modal.querySelector(".alternativePerks").appendChild(img)
+		}
+	} else {
+		modal.querySelector(".alternatives").remove();
+	}
 	if (perks[role][perkid].character) {
 		modal.querySelector(".perkCharacter").textContent = `Teachable perk from ${role == "killer" ? "the " : ""}${perks[role][perkid].character}`;
 	} else {
@@ -32,16 +50,21 @@ function showPerkDetails(role, perkid) {
 	modal.querySelector(".perkDescription").prepend(img);
 	modal.addEventListener("click", (event) => {
 		if (event.target == modal) {
-			modal.remove(); document.body.classList.remove("blur");
+			modal.remove();
+			// Only remove blur on body if no modals left
+			if (--modalDepth == 0) {
+				document.body.classList.remove("blur");
+			}
 		}
 	});
+	modalDepth++;
 	document.body.appendChild(modal);
 	document.body.classList.add("blur");
 }
 
 document.addEventListener("click", function (event) {
 	if (event.target.classList.contains("perk")) {
-		showPerkDetails(event.target.dataset.role, event.target.dataset.id);
+		showPerkDetails(event.target.dataset.role, event.target.dataset.id, event.target.dataset.altperks);
 	} else if (event.target.classList.contains("sidebarTab")) {
 		document.querySelector("nav").classList.toggle("open");
 	}

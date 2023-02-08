@@ -273,6 +273,7 @@ Builds
 	border-radius: 8px;
 	margin: 8px;
 	box-shadow: 0px 1px 1px white;
+	z-index: 0; /* Create new stacking context */
 }
 .buildName {
 	text-align: center;
@@ -280,6 +281,23 @@ Builds
 .perks {
 	display: flex;
 	justify-content: center;
+}
+.perkWrapper {
+	position: relative;
+}
+.perkWrapper.hasAltPerks::after {
+	content: "";
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	background-image: var(--altImg);
+	background-size: contain;
+	background-position: center;
+	background-color: rgb(51, 51, 51);
+	border-radius: 50%;
+	right: -5px;
+	top: -5px;
+	z-index: -1;
 }
 .perk {
 	width: 64px;
@@ -302,6 +320,8 @@ Perk description modal
 	right: 0;
 	left: 0;
 	display: flex;
+	flex-direction: column;
+	gap: 15px;
 	justify-content: center;
 	align-items: center;
 }
@@ -313,6 +333,13 @@ Perk description modal
 	overflow-y: auto;
 	border-radius: 8px;
 	background-color: var(--bg-secondary);
+}
+.alternatives {
+	background-color: var(--bg-secondary);
+	padding: 20px 40px;
+	border-radius: 8px;
+	width: 70%;
+	text-align: center;
 }
 .perkDescription {
 	font-size: large;
@@ -373,7 +400,8 @@ Changes for mobile
 	.image > img {
 		max-width: 100%;
 	}
-	.modal {
+	.modal,
+	.alternatives {
 		width: 90%;
 		padding: 10px 20px;
 	}
