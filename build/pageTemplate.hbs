@@ -74,6 +74,7 @@
 									<div class="perkWrapper">
 									{{/if}}
 										<img class="perk" title="{{perkObject.perk.perkName}}" alt="{{perkObject.perk.perkName}}" src="{{perkObject.perk.perkImage}}" data-role="killer" data-id="{{perkObject.perk.id}}" {{#if perkObject.alternatives}}data-altPerks="{{perkObject.alternatives}}" {{/if}} loading="lazy">
+									    <p class="perkName" style="display: none;">{{perkObject.perk.perkName}}</p>
 									</div>
 
 									{{/each}}
@@ -106,6 +107,7 @@
 									<div class="perkWrapper">
 									{{/if}}
 										<img class="perk" title="{{perkObject.perk.perkName}}" alt="{{perkObject.perk.perkName}}" src="{{perkObject.perk.perkImage}}" data-role="survivor" data-id="{{perkObject.perk.id}}" {{#if perkObject.alternatives}}data-altPerks="{{perkObject.alternatives}}" {{/if}} loading="lazy">
+										<p class="perkName"style="display: none;">{{perkObject.perk.perkName}}</p>
 									</div>
 
 									{{/each}}
@@ -117,6 +119,9 @@
 					{{/each}}
 				</div>
 			</div>
+		</div>
+		<div>
+			<button id="togglePerkNames">Toggle Perk Names</button>
 		</div>
 		<div class="footer">
 			<div>Images and perk descriptions are obtained from the

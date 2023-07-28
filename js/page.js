@@ -69,3 +69,15 @@ document.addEventListener("click", function (event) {
 		document.querySelector("nav").classList.toggle("open");
 	}
 });
+
+document.getElementById('togglePerkNames').addEventListener('click', function() {
+	var perkNames = document.querySelectorAll('.perkName');
+	for (var i = 0; i < perkNames.length; i++) {
+	  if (perkNames[i].style.display === "none") {
+		perkNames[i].style.display = "block";
+	  } else {
+		perkNames[i].style.display = "none";
+	  }
+	}
+  });
+  
