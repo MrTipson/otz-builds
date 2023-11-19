@@ -20,9 +20,6 @@ const FuseSurvivor = new Fuse(perks["survivor"], FuseOptions);
 let killerImages = new Set(perks.killer.map((x) => x?.characterImage));
 killerImages.delete(undefined);
 killerImages = [...killerImages];
-// Since demogorgon's teachables became common perks, his image won't be on the list
-// So sadly, this is hardcoded
-killerImages.push("https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6d/K17_charSelect_portrait.png");
 killerImages.sort(function (a, b) { return a.split("/").pop().localeCompare(b.split("/").pop(), 'en', { numeric: true }); });
 // Hardcode order so huntress comes before the other paid killers
 // This is done to reflect the spreadsheet order
