@@ -5,20 +5,19 @@ const { JSDOM } = require('jsdom');
 async function parsePerks(url) {
 	const dom = await JSDOM.fromURL(url);
 	const { document } = dom.window;
-	// Remove mini icons next to links
-	document.querySelectorAll(".formattedPerkDesc")
-		.forEach((x) => x.querySelectorAll("span[style*=padding]")
-			.forEach((y) => y.remove()));
 	// First element is apparently thead (jsdom is wack)
 	// Grab all rows in table
 	perks = [...document.querySelector("tbody").children].slice(1)
 		.map((x) => {
+			// Remove mini icons next to links
+			x.children[2].querySelectorAll("span[style*=padding]")
+				.forEach((y) => y.remove());
 			// Remap each row into object
 			return {
 				perkImage: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/, ""),
 				perkName: x.querySelectorAll("a")[1].title,
 				// Description is URI encoded for simplicity
-				description: encodeURI(x.querySelector(".formattedPerkDesc").innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
+				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
 				character: x.children[3].querySelectorAll("a")[0]?.title,
 				characterImage: x.children[3].querySelectorAll("a")[1]?.href.replace(/\/revision\/latest.+/, "")
 			}
