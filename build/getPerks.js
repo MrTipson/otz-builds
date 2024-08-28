@@ -19,7 +19,7 @@ async function parsePerks(url) {
 				// Description is URI encoded for simplicity
 				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
 				character: x.children[3].querySelectorAll("a")[0]?.title,
-				characterImage: x.children[3].querySelectorAll("a")[1]?.href.replace(/\/revision\/latest.+/, "")
+				characterImage: x.children[3].querySelector("img")?.dataset.src.replace(/\/revision\/latest.+/, "")
 			}
 		});
 	// Sort so binary search can be used
