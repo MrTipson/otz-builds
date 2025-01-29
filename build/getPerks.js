@@ -5,21 +5,21 @@ const { JSDOM } = require('jsdom');
 async function parsePerks(url) {
 	const dom = await JSDOM.fromURL(url);
 	const { document } = dom.window;
-	// First element is apparently thead (jsdom is wack)
 	// Grab all rows in table
-	perks = [...document.querySelector("tbody").children].slice(1)
+	perks = [...document.querySelector("tbody").children]
 		.map((x) => {
 			// Remove mini icons next to links
 			x.children[2].querySelectorAll("span[style*=padding]")
 				.forEach((y) => y.remove());
+			const imageElement = x.children[0].querySelector("img");
 			// Remap each row into object
 			return {
-				perkImage: x.querySelectorAll("a")[0].href.replace(/\/revision\/latest.+/, ""),
-				perkName: x.querySelectorAll("a")[1].title,
+				perkImage: imageElement?.src,
+				perkName: imageElement?.alt,
 				// Description is URI encoded for simplicity
-				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.fandom.com/wiki/")),
-				character: x.children[3].querySelectorAll("a")[0]?.title,
-				characterImage: x.children[3].querySelector("img")?.dataset.src.replace(/\/revision\/latest.+/, "")
+				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.wiki.gg/wiki/")),
+				character: x.children[3].querySelector("a")?.title,
+				characterImage: x.children[3].querySelector("img")?.src
 			}
 		});
 	// Sort so binary search can be used
@@ -30,8 +30,8 @@ async function parsePerks(url) {
 (async function () {
 	// Grab webpage
 	let perks = {
-		killer: await parsePerks("https://deadbydaylight.fandom.com/wiki/Killer_Perks"),
-		survivor: await parsePerks("https://deadbydaylight.fandom.com/wiki/Survivor_Perks")
+		killer: await parsePerks("https://deadbydaylight.wiki.gg/wiki/Killer_Perks"),
+		survivor: await parsePerks("https://deadbydaylight.wiki.gg/wiki/Survivor_Perks")
 	}
 	// Write back into file
 	fs.writeFileSync("../perks.json", JSON.stringify(perks, null, '\t'));
