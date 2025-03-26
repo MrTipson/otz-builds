@@ -1,11 +1,11 @@
 {
 	"type": "commonjs",
 	"dependencies": {
-		"axios": "^0.27.2",
+		"axios": "^1.8.4",
 		"fs": "^0.0.1-security",
-		"fuse.js": "^6.6.2",
-		"handlebars": "^4.7.7",
-		"jsdom": "^20.0.0",
-		"papaparse": "^5.3.2"
+		"fuse.js": "^7.1.0",
+		"handlebars": "^4.7.8",
+		"jsdom": "^26.0.0",
+		"papaparse": "^5.5.2"
 	}
 }

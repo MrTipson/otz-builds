@@ -2,3 +2,7 @@ index.html
 build/node_modules
 build/package-lock.json
 perks.json
+
+.envrc
+.direnv
+flake.lock

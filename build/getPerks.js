@@ -1,9 +1,11 @@
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
+const axios = require("axios").default;
 
 // Parse perks from the wikipedia perk tables
 async function parsePerks(url) {
-	const dom = await JSDOM.fromURL(url);
+	const stuff = await axios.get(url);
+	const dom = new JSDOM(stuff.data);
 	const { document } = dom.window;
 	// Grab all rows in table
 	perks = [...document.querySelector("tbody").children]
@@ -14,7 +16,7 @@ async function parsePerks(url) {
 			const imageElement = x.children[0].querySelector("img");
 			// Remap each row into object
 			return {
-				perkImage: imageElement?.src,
+				perkImage: "https://deadbydaylight.wiki.gg" + imageElement?.src,
 				perkName: imageElement?.alt,
 				// Description is URI encoded for simplicity
 				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.wiki.gg/wiki/")),
