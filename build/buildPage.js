@@ -68,9 +68,9 @@ function parseCharacter(role, data, row, col) {
 	character.name = data[row][col];
 	character.builds = [];
 	if (role === "killer") {
-		character.img = "https://deadbydaylight.wiki.gg" + killerImages.splice(0, 1);
+		character.img = "https://deadbydaylight.wiki.gg" + killerImages.splice(0, 1)[0];
 	} else {
-		character.img = survivorImages.splice(0, 1);
+		character.img = survivorImages.splice(0, 1)[0];
 	}
 	// Loop over columns (builds)
 	for (let i = 1; i < 8; i += 2) {
