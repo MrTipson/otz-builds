@@ -70,7 +70,7 @@ function parseCharacter(role, data, row, col) {
 	if (role === "killer") {
 		character.img = "https://deadbydaylight.wiki.gg" + killerImages.splice(0, 1);
 	} else {
-		character.img = survivorImages.splice(0, 1);
+		character.img = "" + survivorImages.splice(0, 1);
 	}
 	// Loop over columns (builds)
 	for (let i = 1; i < 8; i += 2) {
