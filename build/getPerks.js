@@ -11,12 +11,12 @@ async function parsePerks(url) {
 	perks = [...document.querySelector("tbody").children]
 		.map((x) => {
 			// Remove mini icons next to links
-			x.children[2].querySelectorAll("span[style*=padding]")
-				.forEach((y) => y.remove());
+			x.children[2].querySelectorAll(".iconLink").forEach((y) => y.remove());
 			const imageElement = x.children[0].querySelector("img");
+			const imageUrl = imageElement?.src.substring(0, imageElement.src.lastIndexOf("/")).replace("/thumb", "");
 			// Remap each row into object
 			return {
-				perkImage: "https://deadbydaylight.wiki.gg" + imageElement?.src,
+				perkImage: "https://deadbydaylight.wiki.gg" + imageUrl,
 				perkName: imageElement?.alt,
 				// Description is URI encoded for simplicity
 				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.wiki.gg/wiki/")),

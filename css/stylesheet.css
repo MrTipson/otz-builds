@@ -202,7 +202,7 @@ Characters
 .characters {
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(860px, 1fr));
 	margin-bottom: 10px;
 }
 /*
