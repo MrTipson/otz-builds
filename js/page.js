@@ -69,3 +69,21 @@ document.addEventListener("click", function (event) {
 		document.querySelector("nav").classList.toggle("open");
 	}
 });
+
+// Killer search functionality
+const killerSearch = document.getElementById("killerSearch");
+if (killerSearch) {
+	killerSearch.addEventListener("input", function(event) {
+		const searchTerm = event.target.value.toLowerCase();
+		const killers = document.querySelectorAll("#killers .character");
+
+		killers.forEach(killer => {
+			const killerName = killer.querySelector(".characterName").textContent.toLowerCase();
+			if (killerName.includes(searchTerm)) {
+				killer.style.display = "";
+			} else {
+				killer.style.display = "none";
+			}
+		});
+	});
+}
