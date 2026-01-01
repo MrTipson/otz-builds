@@ -4,6 +4,7 @@ const axios = require("axios").default;
 
 // Parse perks from the wikipedia perk tables
 async function parsePerks(url) {
+	const isKiller = url.indexOf("Killer") !== -1;
 	const stuff = await axios.get(url);
 	const dom = new JSDOM(stuff.data);
 	const { document } = dom.window;
@@ -20,7 +21,7 @@ async function parsePerks(url) {
 				perkName: imageElement?.alt,
 				// Description is URI encoded for simplicity
 				description: encodeURI(x.children[2].innerHTML.replaceAll("/wiki/", "https://deadbydaylight.wiki.gg/wiki/")),
-				character: x.children[3].querySelector("a")?.title,
+				character: isKiller ? x.children[3].querySelector("a")?.textContent : x.children[3].querySelector("a")?.title,
 				characterImage: x.children[3].querySelector("img")?.src
 			}
 		});
